@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PDFPrinter.Views.Configuration">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="#FFFFFF" Padding="24" CornerRadius="0" Margin="0,0,0,-6">
+                <Label 
+                        x:Name="lblTitle"
+                        Text="Configuración" 
+                        HorizontalTextAlignment="Center" 
+                        TextColor="#2196F3" 
+                        FontSize="36"/>
+            </Frame>
+            <ScrollView>
+                <StackLayout>
+                    <Label 
+                        Text="Nombre Punto Venta"
+                        Margin="10"  />
+                    <Entry
+                        Text="{Binding POSName, Mode=TwoWay}"
+                        Placeholder="Set POS Name"
+                        Margin="10,0,10,0" />
+
+                    <Label 
+                        Text="Url Servicio"
+                        Margin="10"  />
+                    <Entry
+                        Text="{Binding UrlService, Mode=TwoWay}"
+                        Placeholder="Url Base Service"
+                        Margin="10,0,10,0" />
+                    
+                    <Label 
+                        Text="Impresora"
+                        Margin="10" />
+                    <Picker 
+                        Title="Select Bluetooth Printer"
+                        ItemsSource="{Binding DeviceList}"
+                        ItemDisplayBinding="{Binding .}"
+                        SelectedItem="{Binding SelectedDevice}"
+                        Margin="10,0,10,0" />
+
+                    <Label 
+                        Text="Modo Impresión"
+                        Margin="10" />
+                    <Picker 
+                        Title="Select Printing Mode"
+                        ItemsSource="{Binding PrintModeList}"
+                        ItemDisplayBinding="{Binding .}"
+                        SelectedItem="{Binding SelectedPrintMode}"
+                        Margin="10,0,10,0" />
+
+                    <Label 
+                        Text="Intervalo"
+                        Margin="10" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label 
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Text="Minutos"
+                            TextColor="#2196F3"
+                            FontSize="Medium"
+                            HorizontalOptions="CenterAndExpand"/>
+
+                        <Label 
+                            Grid.Column="2"
+                            Grid.Row="0"
+                            Text="Segundos"
+                            TextColor="#2196F3"
+                            FontSize="Medium"
+                            HorizontalOptions="CenterAndExpand"/>
+
+                        <Picker 
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Title="Minutes"
+                            HorizontalTextAlignment="Center"
+                            ItemsSource="{Binding MinuteList}"
+                            ItemDisplayBinding="{Binding .}"
+                            SelectedItem="{Binding SelectedMinute}"
+                            Margin="10,0,10,0" />
+
+                        <Label
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            Text=":"
+                            FontSize="Large"/>
+
+                        <Picker 
+                            Grid.Column="2"
+                            Grid.Row="1"
+                            Title="Seconds"
+                            HorizontalTextAlignment="Center"
+                            ItemsSource="{Binding SecondsList}"
+                            ItemDisplayBinding="{Binding .}"
+                            SelectedItem="{Binding SelectedSecond}"
+                            Margin="10,0,10,0" />
+                    </Grid>
+                    
+                    <Button 
+                        x:Name="btnSaveConfig"
+                        Text="Guardar"
+                        FontSize="Large"
+                        FontAttributes="Bold"
+                        BackgroundColor="#2196F3"
+                        TextColor="White"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="End"
+                        CornerRadius="20"
+                        Margin="5"
+                        IsEnabled="{Binding CanSaveConfig, Mode=TwoWay}"
+                        Command="{Binding SaveConfigurationCommand}"/>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

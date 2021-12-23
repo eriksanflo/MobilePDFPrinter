@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PDFPrinter.Views.PrinterManager">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand" >
+            <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0" Margin="0,0,0,-6">
+                <Label 
+                        x:Name="lblTitle"
+                        Text="Impresión Movil" 
+                        HorizontalTextAlignment="Center" 
+                        TextColor="White" 
+                        FontSize="36"/>
+            </Frame>
+            <Grid BackgroundColor="White" VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackLayout 
+                    Grid.Column="0"
+                    Orientation="Vertical" 
+                    BackgroundColor="#2196F3">
+                    <ScrollView VerticalOptions="FillAndExpand" >
+                        <StackLayout Orientation="Vertical">
+                            <Label
+                                Text="Ultima Ejecución"
+                                TextColor="White"
+                                Margin="5,0,0,-5" />
+                            <Label
+                                x:Name="lblExecution"
+                                Margin="10,0,5,5"
+                                Text="{Binding LastExecution, Mode=TwoWay}"
+                                
+                                HorizontalTextAlignment="Start"
+                                FontSize="Medium"
+                                FontAttributes="Bold"
+                                TextColor="White" />
+
+                            <Label
+                                Text="Proxima ejecución"
+                                TextColor="White"
+                                Margin="5,0,0,-5" />
+                            <Label
+                                x:Name="lblCronometer"
+                                Margin="10,0,5,5"
+                                Text="{Binding Cronometer, Mode=TwoWay}"
+                                HorizontalTextAlignment="Start"
+                                FontSize="Medium"
+                                FontAttributes="Bold"
+                                TextColor="White" />
+                            
+                            <Label
+                                Text="Punto Venta"
+                                TextColor="White"
+                                Margin="5,0,0,-5" />
+                            <Label
+                                x:Name="lblPos"
+                                Margin="10,0,5,5"
+                                Text="{Binding PointOfSale, Mode=TwoWay}"
+                                HorizontalTextAlignment="Start"
+                                FontSize="Medium"
+                                FontAttributes="Bold"
+                                TextColor="White" />
+
+                            <Label
+                                Text="Impresora"
+                                TextColor="White"
+                                Margin="5,0,0,-5" />
+                            <Label
+                                x:Name="lblPrinter"
+                                Margin="10,0,5,5"
+                                Text="{Binding SelectedDevice, Mode=TwoWay}"
+                                HorizontalTextAlignment="Start"
+                                FontSize="Medium"
+                                FontAttributes="Bold"
+                                TextColor="White" />
+
+                            <Label
+                                Text="Tipo Impresión"
+                                TextColor="White"
+                                Margin="5,0,0,-5" />
+                            <Label
+                                x:Name="lblPrintType"
+                                Margin="10,0,5,5"
+                                Text="{Binding PrintType, Mode=TwoWay}"
+                                HorizontalTextAlignment="Start"
+                                FontSize="Medium"
+                                FontAttributes="Bold"
+                                TextColor="White" />
+
+                            <Label
+                                Text="Intervalo (mm:ss)"
+                                TextColor="White"
+                                Margin="5,0,0,-5" />
+                            <Label
+                                x:Name="lblTimer"
+                                Margin="10,0,5,5"
+                                Text="{Binding Timer, Mode=TwoWay}"
+                                HorizontalTextAlignment="Start"
+                                FontSize="Medium"
+                                FontAttributes="Bold"
+                                TextColor="White" />
+
+                        </StackLayout>
+                    </ScrollView>
+
+                    <StackLayout Orientation="Vertical" VerticalOptions="End">
+                        <Button 
+                            x:Name="btnGoConfig"
+                            Text="Ir a Configuración"
+                            FontSize="Body"
+                            BackgroundColor="Transparent"
+                            TextColor="DarkBlue"
+                            HorizontalOptions="Start"
+                            VerticalOptions="End"
+                            Clicked="btnGoConfig_Clicked"/>
+
+                        <!--<Button 
+                            x:Name="btnGetConfig"
+                            Text="Obtener Configuración"
+                            FontSize="Body"
+                            BackgroundColor="Transparent"
+                            TextColor="DarkBlue"
+                            HorizontalOptions="Start"
+                            VerticalOptions="End"
+                            Command="{Binding GetConfigurationCommand}" />-->
+
+                        <Button 
+                            x:Name="btnReset"
+                            Text="Imprimir"
+                            FontSize="Large"
+                            FontAttributes="Bold"
+                            BackgroundColor="Black"
+                            TextColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="End"
+                            CornerRadius="20"
+                            Margin="5"
+                            Command="{Binding ResetCommand}"/>
+                        
+                        <Button 
+                            x:Name="btnOnOff"
+                            Text="{Binding BtnText, Mode=TwoWay}"
+                            FontSize="Large"
+                            FontAttributes="Bold"
+                            BackgroundColor="Black"
+                            TextColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="End"
+                            CornerRadius="20"
+                            Margin="5"
+                            Command="{Binding OnOffCommand}"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <ListView 
+                    x:Name="listPrinter"  
+                    Grid.Column="1"
+                    Header="Lista de Impresión"
+                    ItemsSource="{Binding Jobs, Mode=TwoWay}" 
+                    RowHeight="55">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="20"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="0" FontAttributes="Bold" Text="{Binding Folio}" LineBreakMode="TailTruncation"></Label>
+                                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding HoraImpresion}" Font="Small"  TextColor="Gray" LineBreakMode="TailTruncation"></Label>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+
+            <!--<Picker ItemsSource="{Binding DeviceList}"
+                    Title="Select Bluetooth Printer"
+                    ItemDisplayBinding="{Binding .}"
+                    SelectedItem="{Binding SelectedDevice}" />
+            <Button BackgroundColor="Black"
+                            Margin="10"
+                            BorderRadius="10"
+                            Text="Print By Lines" 
+                            TextColor="White"
+                            Command="{Binding PrintTicketCommand}"/>
+
+            <Button BackgroundColor="Black"
+                            Margin="10"
+                            BorderRadius="10"
+                            Text="Download Logo and Print Lines" 
+                            TextColor="White"
+                            Command="{Binding DownloadLogoAndPrintLinesAndPrintCommand}"/>
+
+            <Button BackgroundColor="Black"
+                            Margin="10"
+                            BorderRadius="10"
+                            Text="Download PDF And Print" 
+                            TextColor="White"
+                            Command="{Binding DownloadPDFAndPrintCommand}"/>-->
+
+            <!--<Button BackgroundColor="Black"
+                            Margin="10"
+                            BorderRadius="10"
+                            Text="Print PDF By Byte" 
+                            TextColor="White"
+                            Command="{Binding DownloadPDFAndPrintBytesCommand}"/>-->
+
+            <!--<Button BackgroundColor="Black"
+                    x:Name="btnDownload"
+                            Margin="10"
+                            BorderRadius="10"
+                            Text="Download Ticket" 
+                            TextColor="White"
+                            Command="{Binding DowloadTicketCommand}"  />-->
+
+            <!--<Button BackgroundColor="Black"
+                    x:Name="btnDownloadFile"
+                            Margin="10"
+                            BorderRadius="10"
+                            Text="Download PDF And Print Bytes" 
+                            TextColor="White"
+                            Command="{Binding DownloadPDFAndPrintBytesCommandOnClick}"/>-->
+
+            <!--<Image x:Name="ticketImage" 
+                   Background="#459090"
+                   AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                   AbsoluteLayout.LayoutFlags="All" 
+                   HorizontalOptions="FillAndExpand" 
+                   VerticalOptions="FillAndExpand"
+                   Source="{Binding ImageTicket}"/>-->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
